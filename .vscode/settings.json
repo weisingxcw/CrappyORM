@@ -1,0 +1,6 @@
+{
+    "python.linting.enabled": true,
+    "python.pythonPath": "I:\\Users\\admins\\AppData\\Local\\Programs\\Python\\Python35-32\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "yapf"
+}
