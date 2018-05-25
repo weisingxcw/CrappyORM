@@ -2,17 +2,16 @@ import Entity
 
 
 class MovBLL(Entity.Mov):
-    def __init__(self, initObj):
-        self = initObj
-
+    """电影逻辑层
+        :param Entity.Mov: 
+    """
     def AddNewMov(self, newMov):
         self.Create(newMov)
         pass
 
 
-# newMov = Entity.Mov()
+newMov = Entity.Mov()
+newMov.title = 'sf'
+newMov.id = 3
 
-# newMov.title = 'sf'
-# newMov.id = 2
-# movMethod = MovBLL(newMov)
-# movMethod.Update(newMov,title=3)
+print(type(MovBLL().ReadByFilter(1,{'id':1})))

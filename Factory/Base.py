@@ -18,6 +18,9 @@ def StringColumn(isPrimaryKey=False, len=0):
     return Column(len > 0 and String(len) or String)
 
 
+pass
+
+
 def GetPrimaryKeyDict(obj):
     #返回主键LIST
     mapper = object_mapper(obj)
@@ -27,9 +30,6 @@ def GetPrimaryKeyDict(obj):
 
     #转换list[dict]为dicts
     return {k: v for dct in keys for k, v in dct.items()}
-
-
-pass
 
 
 class BaseCRUD:
@@ -48,25 +48,59 @@ class BaseCRUD:
         pass
 
     def Create(self, new):
-        """新增
+        """新增数据
             :param self: 
-            :param new: 新增数据对象单例
+            :param new: 新增对象单例
         """
         self.__initConnect__()
         self.session.add(new)
         self.session.commit()
         pass
 
-    def Update(self, data, **kwargs):
-        """更新（通过主键）
+    def ReadById(self, *args):
+        """读取数据（主键）
             :param self: 
-            :param attribute_names:更新对象单例
+            :param **kwargs: 主键值
+        """
+        self.__initConnect__()
+        instance = self.session.query(self.__class__).get(args)
+        return instance
+
+    def ReadByFilter(self, scalar, dict):
+        """读取数据（条件）
+            :param self: 
+            :param **kwargs: 
+        """
+        self.__initConnect__()
+        instance = self.session.\
+                        query(self.__class__).\
+                        filter_by(**dict).\
+                        limit(scalar)
+        return instance
+
+    def Update(self, data, **kwargs):
+        """更新数据（主键）
+            :param self: 
+            :param adttribute_names:更新对象单例
             :param **kwargs:更新字段（例：name = 'charle'）
         """
         self.__initConnect__()
         primaryKey = GetPrimaryKeyDict(data)
         scalar = self.session.query(self.__class__).\
-                    filter_by(**primaryKey).\
-                    update(kwargs)
+                        filter_by(**primaryKey).\
+                        update(kwargs)
+        self.session.commit()
+        return scalar
+
+    def Delete(self, data):
+        """删除数据（主键）~慎重
+            :param self: 
+            :param data: 删除对象单例
+        """
+        self.__initConnect__()
+        primaryKey = GetPrimaryKeyDict(data)
+        scalar = self.session.query(self.__class__).\
+                        filter_by(**primaryKey).\
+                        delete(synchronize_session='fetch')
         self.session.commit()
         return scalar
