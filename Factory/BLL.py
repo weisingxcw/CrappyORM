@@ -10,10 +10,9 @@ class MovBLL(Entity.Mov):
         pass
 
 
-newMov = Entity.Mov()
+# newMov = Entity.Mov()
 
-newMov.title = 'sf'
-newMov.id = 1
-
-movMethod = MovBLL(newMov)
-movMethod.Update(newMov)
+# newMov.title = 'sf'
+# newMov.id = 2
+# movMethod = MovBLL(newMov)
+# movMethod.Update(newMov,title=3)
