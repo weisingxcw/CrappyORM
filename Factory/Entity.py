@@ -2,6 +2,7 @@ from enum import Enum
 from Base import BaseCRUD, BaseModel, IntegerColum, StringColumn
 
 
+
 class DataBase(Enum):
     local = 'mysql+pymysql://root:root@localhost:3306/movindex'
 

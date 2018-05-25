@@ -2,15 +2,18 @@ import Entity
 
 
 class MovBLL(Entity.Mov):
-    def __init__(self,initObj):
+    def __init__(self, initObj):
         self = initObj
-        print(self.title)
-    def AddNewMov(self, title):
-        self.Create()
+
+    def AddNewMov(self, newMov):
+        self.Create(newMov)
         pass
 
+
 newMov = Entity.Mov()
+
 newMov.title = 'sf'
+newMov.id = 1
 
 movMethod = MovBLL(newMov)
-movMethod.AddNewMov('tfs')
+movMethod.Update(newMov)
